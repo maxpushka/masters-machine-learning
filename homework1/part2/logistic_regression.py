@@ -1,10 +1,11 @@
 import numpy as np
 from scipy.special import expit
 from sklearn.preprocessing import StandardScaler
+from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.metrics import accuracy_score
 
 
-class LogisticRegression:
+class LogisticRegression(BaseEstimator, ClassifierMixin):
     def __init__(
         self,
         learning_rate=0.01,
@@ -55,10 +56,10 @@ class LogisticRegression:
         regularization_term[0] = 0  # No regularization for the intercept term
         gradient += regularization_term
 
-        print("Shape of gradient:", gradient.shape)  # Should match weights' shape
         return gradient
 
     def fit(self, X, y):
+        self.classes_ = np.unique(y)  # for compatibility with scikit-learn estimators
         X = self.scaler.fit_transform(X)
         X = np.c_[np.ones((X.shape[0], 1)), X]  # add intercept term
         self.weights = np.zeros(X.shape[1])
@@ -67,16 +68,6 @@ class LogisticRegression:
 
         for i in range(self.max_iter):
             gradient = self.compute_gradient(X, y, self.weights)
-
-            # Debugging: Check shapes
-            print("Weights shape:", self.weights.shape)
-            print("Gradient shape:", gradient.shape)
-
-            # Update weights
-
-            # Debugging: Check shapes
-            print("Weights shape:", self.weights.shape)
-            print("Gradient shape:", gradient.shape)
 
             # Update weights
             self.weights -= self.learning_rate * gradient
