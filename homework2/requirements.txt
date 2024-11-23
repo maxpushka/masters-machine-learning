@@ -1,0 +1,13 @@
+click
+numpy
+scikit-learn
+pillow
+pandas
+plotly
+ipywidgets
+
+torch
+ftfy
+regex
+tqdm
+git+https://github.com/openai/CLIP.git
