@@ -1,0 +1,9 @@
+click
+torch
+torchvision
+transformers
+numpy
+pandas
+timm
+pillow
+nltk
